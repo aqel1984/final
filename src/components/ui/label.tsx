@@ -1,15 +1,14 @@
-// src/components/ui/label.tsx
 import React from 'react';
 
-interface LabelProps {
-  htmlFor: string;
-  children: React.ReactNode;
+interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   className?: string;
 }
 
-const Label: React.FC<LabelProps> = ({ htmlFor, children, className }) => {
+const Label: React.FC<LabelProps> = ({ className = '', children, ...props }) => {
+  const baseStyles = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
+
   return (
-    <label htmlFor={htmlFor} className={className}>
+    <label className={`${baseStyles} ${className}`} {...props}>
       {children}
     </label>
   );

@@ -1,10 +1,17 @@
-import React from 'react'
-import LiveChatWidget from '@/components/LiveChatWidget'
-import '@/styles/globals.css' // Import global styles for Tailwind CSS
+import '../styles/globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 
-export const metadata = {
-  title: 'Your App Name',
-  description: 'Description of your app',
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'Jehad Aqel Ltd',
+  description: 'Premium shea butter products',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -14,16 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
-        <LiveChatWidget 
-          license={process.env.NEXT_PUBLIC_LIVECHAT_LICENSE}
-          group="0"
-          appleBusinessChat={{
-            businessId: process.env.NEXT_PUBLIC_APPLE_BUSINESS_CHAT_ID,
-            buttonId: process.env.NEXT_PUBLIC_APPLE_BUSINESS_CHAT_BUTTON_ID
-          }}
-        />
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
+        <Header />
+        <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   )

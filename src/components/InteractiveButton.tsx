@@ -1,18 +1,34 @@
-// src/components/InteractiveButton.tsx
+'use client';
 
-'use client'
+import React from 'react';
+import { Button } from '@/components/ui/button';
 
-import React from 'react'
-import Button from '@/components/ui/button'
+interface InteractiveButtonProps {
+  onClick?: () => void;
+  className?: string;
+  children: React.ReactNode;
+}
 
-export default function InteractiveButton() {
+const InteractiveButton: React.FC<InteractiveButtonProps> = ({
+  onClick,
+  className = '',
+  children,
+}) => {
   const handleClick = () => {
-    console.log('Button clicked!')
-  }
+    console.log('Button clicked!');
+    onClick?.();
+  };
 
   return (
-    <Button onClick={handleClick}>
-      Click me
+    <Button
+      onClick={handleClick}
+      className={className}
+      variant="primary"
+      size="md"
+    >
+      {children}
     </Button>
-  )
-}
+  );
+};
+
+export default InteractiveButton;

@@ -1,13 +1,14 @@
-// src/components/ParentComponent.tsx
+// ParentComponent.tsx
+"use client";
+import React from 'react';
+import { ErrorBoundary } from './ErrorBoundary';
 
-import React from 'react'
-import InteractiveButton from '@/components/InteractiveButton'
-
-export default function ParentComponent() {
+const ParentComponent = () => {
   return (
-    <div>
-      <h1>My App</h1>
-      <InteractiveButton />
-    </div>
-  )
-}
+    <ErrorBoundary>
+      {/* Your other components go here */}
+    </ErrorBoundary>
+  );
+};
+
+export default ParentComponent;

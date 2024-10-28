@@ -1,22 +1,48 @@
-import React from 'react'
+import React from 'react';
 
 interface LiveChatWidgetProps {
-  license: string | undefined
-  group: string
-  appleBusinessChat: {
-    businessId: string | undefined
-    buttonId: string | undefined
+  license: string;
+  group?: string;
+  appleBusinessChat?: {
+    businessId: string;
+    buttonId: string;
+  };
+}
+
+declare global {
+  interface Window {
+    LiveChatWidget: any;
   }
 }
 
 const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({ license, group, appleBusinessChat }) => {
   React.useEffect(() => {
-    // Here you would typically add the LiveChat script and initialize the widget
-    // This is a placeholder for where that logic would go
-    console.log('LiveChat widget initialized with:', { license, group, appleBusinessChat })
-  }, [license, group, appleBusinessChat])
+    const script = document.createElement('script');
+    script.src = 'https://cdn.livechatinc.com/tracking.js';
+    script.async = true;
+    document.body.appendChild(script);
 
-  return null // The widget doesn't render any visible elements directly
-}
+    script.onload = () => {
+      window.LiveChatWidget.init();
+      window.LiveChatWidget.call('set_custom_variables', [
+        { name: 'License', value: license },
+        { name: 'Group', value: group || 'Default' }
+      ]);
 
-export default LiveChatWidget
+      if (appleBusinessChat) {
+        window.LiveChatWidget.call('set_apple_business_chat', {
+          businessId: appleBusinessChat.businessId,
+          buttonId: appleBusinessChat.buttonId
+        });
+      }
+    };
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [license, group, appleBusinessChat]);
+
+  return null;
+};
+
+export default LiveChatWidget;
