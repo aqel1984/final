@@ -1,3 +1,5 @@
+// src/components/layout/Header.tsx
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '../ui/Button'

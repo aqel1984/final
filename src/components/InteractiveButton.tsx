@@ -1,34 +1,8 @@
+// src/components/InteractiveButton.tsx
+
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button'; // Updated import statement
 
-interface InteractiveButtonProps {
-  onClick?: () => void;
-  className?: string;
-  children: React.ReactNode;
-}
-
-const InteractiveButton: React.FC<InteractiveButtonProps> = ({
-  onClick,
-  className = '',
-  children,
-}) => {
-  const handleClick = () => {
-    console.log('Button clicked!');
-    onClick?.();
-  };
-
-  return (
-    <Button
-      onClick={handleClick}
-      className={className}
-      variant="primary"
-      size="md"
-    >
-      {children}
-    </Button>
-  );
-};
-
-export default InteractiveButton;
+// ... rest of the file remains the same
