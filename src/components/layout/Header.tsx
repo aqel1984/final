@@ -1,16 +1,14 @@
-// src/components/layout/Header.tsx
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '../ui/Button'
+import { Button } from '@/components/ui/button'
 
 export function Header() {
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="Shea Butter S. Ceathra Logo" width={50} height={50} />
-          <span className="ml-2 text-xl font-bold text-gray-800">Shea Butter S. Ceathra</span>
+          <Image src="/logo.png" alt="Aqel Jehad LTD Logo" width={50} height={50} />
+          <span className="ml-2 text-xl font-bold text-gray-800">Aqel Jehad LTD</span>
         </Link>
         <nav>
           <ul className="flex space-x-4">

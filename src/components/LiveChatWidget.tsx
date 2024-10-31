@@ -1,48 +1,32 @@
-import React from 'react';
+'use client'
 
-interface LiveChatWidgetProps {
-  license: string;
-  group?: string;
-  appleBusinessChat?: {
-    businessId: string;
-    buttonId: string;
-  };
+import { useEffect } from 'react'
+
+interface ChatConfig {
+  license: string
+  group?: string
+}
+
+interface ChatWidgetType {
+  init: () => void
+  call: (method: string, params: unknown[]) => void
 }
 
 declare global {
   interface Window {
-    LiveChatWidget: any;
+    LiveChatWidget: ChatWidgetType
   }
 }
 
-const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({ license, group, appleBusinessChat }) => {
-  React.useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.livechatinc.com/tracking.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      window.LiveChatWidget.init();
-      window.LiveChatWidget.call('set_custom_variables', [
-        { name: 'License', value: license },
-        { name: 'Group', value: group || 'Default' }
-      ]);
-
-      if (appleBusinessChat) {
-        window.LiveChatWidget.call('set_apple_business_chat', {
-          businessId: appleBusinessChat.businessId,
-          buttonId: appleBusinessChat.buttonId
-        });
+export function LiveChatWidget({ license, group }: ChatConfig) {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.LiveChatWidget) {
+      window.LiveChatWidget.init()
+      if (group) {
+        window.LiveChatWidget.call('set_groups', [group])
       }
-    };
+    }
+  }, [license, group])
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, [license, group, appleBusinessChat]);
-
-  return null;
-};
-
-export default LiveChatWidget;
+  return null
+}
